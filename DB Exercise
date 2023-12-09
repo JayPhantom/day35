@@ -1,0 +1,64 @@
+CREATE TABLE Students (
+  StudentID int(10),
+  Name varchar(255),
+  DateOfBirth datetime,
+  GradeLevel int (10),
+  PRIMARY KEY (StudentID)
+  );
+  
+ INSERT INTO Students (StudentID, Name, DateOfBirth, GradeLevel)
+ VALUES ('1-12', 'Jacob Paolo', '1996-11-27 12:00:00', '2'),
+        ('2-17', 'Shaun Angelo', '1996-10-07 12:00:00', '2'),
+        ('3-31', 'John Julian', '1995-05-31 12:00:00', '4'),
+        ('4-93', 'Julia May', '1995-07-05 12:00:00', '3'),
+        ('5-74', 'John Brebeuf', '1995-10-21 12:00:00', '2'),
+        ('6-35', 'Anthony Al', '1998-12-30 12:00:00', '1');
+  
+CREATE TABLE Courses (
+    Course varchar(255),
+    Unit int(10)
+    );
+
+INSERT INTO Courses(Course, Unit)
+VALUES ('Math', '2'),
+        ('Physics', '3'),
+        ('Humanities', '2');
+
+CREATE TABLE Enrollment (
+    Students int(10),
+    Courses varchar(255)
+);
+
+INSERT INTO Enrollment (Students, Courses)
+VALUES ('Jacob Paolo', 'Math'),
+    ('Jacob Paolo', 'Physics'),
+    ('Shaun Angelo', 'Physics'),
+    ('Shaun Angelo', 'Humanities'),
+    ('John Julian', 'Humanities'),
+    ('John Julian', 'Math'),
+    ('Julia May', 'Math'),
+    ('Julia May', 'Physics'),
+    ('John Brebeuf', 'Physics'),
+    ('Anthony Al', 'Humanities');
+    ('Anthony Al', 'Math');
+
+
+SELECT Students, Course
+FROM Courses
+INNER JOIN Enrollment
+ON Courses.Course=Enrollment.Courses;
+
+CREATE TABLE Newtable
+AS
+SELECT Students, Course, Unit
+FROM Courses
+JOIN Enrollment
+ON Courses.Course=Enrollment.Courses;
+
+SELECT Students, SUM(Unit)
+FROM Newtable
+GROUP BY Students;
+
+SELECT Courses, COUNT(*)
+FROM Enrollment
+GROUP BY Courses;
